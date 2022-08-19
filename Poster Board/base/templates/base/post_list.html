@@ -1,0 +1,29 @@
+{% if request.user.is_authenticated %}
+    <p>{{ request.user }}</p>
+    <a href="{% url 'logout' %}">Logout</a>
+{% else %}
+    <a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+<h1>Welcome to Poster Board</h1>
+
+<a href="{% url 'post-create' %}">Post something!</a>
+
+<table>
+
+    {% for post in posts %}
+    <tr>
+        <td>{{ post }} - </td>
+        <td>{{ post.body }} - </td>
+        <td>{{ post.created|timesince }}</td>
+        <td><a href="{% url 'post' post.id %}">View</a></td>
+        {% if user.is_authenticated %}
+            {% if user.id == post.user.id %}                
+                <td><a href="{% url 'post-update' post.id %}">Edit</a></td>
+                <td><a href="{% url 'post-delete' post.id %}">Delete</a></td>
+            {% endif %}
+        {% endif %}
+    </tr>    
+{% endfor %}
+
+</table>

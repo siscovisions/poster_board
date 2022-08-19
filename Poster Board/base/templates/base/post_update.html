@@ -1,0 +1,13 @@
+{% if user.is_authenticated %}
+    {% if user.id == post.user.id %}
+        <h3>Edit your Post</h3>
+        <a href="{% url 'posts' %}">Go back</a>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>        
+    {% else %}    
+        <p>You're not allowed here</p>
+    {% endif %}
+{% endif %}

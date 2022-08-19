@@ -1,0 +1,7 @@
+<h3>Share a post with your neighbors!</h3>
+<a href="{% url 'posts' %}">Go back</a>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
